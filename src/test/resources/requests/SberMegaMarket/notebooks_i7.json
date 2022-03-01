@@ -1,0 +1,81 @@
+{
+  "queryId": "notebooks i7 16+Gb",
+  "chatName": "pavelrzn",
+  "chatId": "335231553",
+  "isActive": true,
+  "body": {
+    "requestVersion": 5,
+    "limit": 30,
+    "offset": 0,
+    "collectionId": "12434",
+    "selectedAssumedCollectionId": "",
+    "isMultiCategorySearch": false,
+    "searchByOriginalQuery": false,
+    "selectedSuggestParams": [],
+    "sorting": 1,
+    "ageMore18": 2,
+    "showNotAvailable": true,
+    "selectedFilters": [
+      {
+        "filterId": "8C956B94EE929CE0076A7F9A432111E5",
+        "type": 1,
+        "value": "16"
+      },
+      {
+        "filterId": "A6651E01C047ADBACBA98E0EBAB09B85",
+        "type": 0,
+        "value": "Core i7"
+      },
+      {
+        "filterId": "89E26A6673FB603645E07175CF76CD39",
+        "type": 0,
+        "value": "2"
+      },
+      {
+        "filterId": "89E26A6673FB603645E07175CF76CD39",
+        "type": 0,
+        "value": "4"
+      },
+      {
+        "filterId": "89E26A6673FB603645E07175CF76CD39",
+        "type": 0,
+        "value": "6"
+      }
+    ],
+    "auth": {
+      "token": "2553cd57-0b56-4b60-8618-ec8819e4cd66",
+      "locationId": "50",
+      "appPlatform": "WEB",
+      "customerId": null,
+      "operatorId": "",
+      "deviceId": "0c02d1e4-a280-4f8a-8892-fc4a9492ee7f",
+      "analyticsDeviceId": "4fe67c25-18d4-48dd-83df-e45cf2a4f1d2",
+      "experiments": {
+        "43568": "1",
+        "53202": "1",
+        "57966": "1",
+        "60357": "2",
+        "64248": "2",
+        "64571": "1",
+        "65144": "1",
+        "65268": "2",
+        "65583": "2",
+        "67062": "1",
+        "67431": "2",
+        "67711": "2",
+        "67972": "1",
+        "68036": "1",
+        "68632": "1",
+        "69032": "3",
+        "70070": "1",
+        "72674": "3",
+        "74069": "2",
+        "74206": "2",
+        "74546": "2",
+        "75567": "4",
+        "75707": "2"
+      },
+      "os": "UNKNOWN_OS"
+    }
+  }
+}
