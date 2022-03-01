@@ -14,6 +14,7 @@ import org.apache.spark.sql.{Column, SparkSession}
 
 import java.util.Calendar
 import scala.language.postfixOps
+import scala.util.Try
 
 object MarketBoss extends App {
 
@@ -25,6 +26,7 @@ object MarketBoss extends App {
 
   val mode = args(1)
   val botToken = args(5)
+  val doResults = Try{args(6).toInt}.getOrElse(0)
   implicit lazy val jdbcProps = new JdbcProps(usr = args(2), pass = args(3), address = args(4))
 
   implicit val api: MarketApi = mode toLowerCase match {
@@ -92,22 +94,24 @@ object MarketBoss extends App {
   resultDs.show(55)
 
 
-  // save new prices in DB
-  val loadDate = dateFormat.format(Calendar.getInstance().getTime)
-  val loadTime = timeFormat.format(Calendar.getInstance().getTime)
-  writeDf(resultDs
-    .select(GOOD_ID, TITLE, PRICE_TO, GOOD_URL)
-    .withColumnRenamed(PRICE_TO, PRICE_FROM)  // в БД называется 'price_from' , т.к. это минимальная цена, в мегамаркете это "цена от". Небольшая путаница возникает
-    .withColumn(LOAD_DATE, lit(loadDate))
-    .withColumn(LOAD_TIME, lit(loadTime))
-    .dropDuplicates(GOOD_ID) // перед записью новой партии товаров удаляем дубликаты, которые нашлись из смежных поисковых запросов (от разных получателей)
-  )
 
+  if (doResults > 0) {
+    // save new prices in DB
+    val loadDate = dateFormat.format(Calendar.getInstance().getTime)
+    val loadTime = timeFormat.format(Calendar.getInstance().getTime)
+    writeDf(resultDs
+      .select(GOOD_ID, TITLE, PRICE_TO, GOOD_URL)
+      .withColumnRenamed(PRICE_TO, PRICE_FROM) // в БД называется 'price_from' , т.к. это минимальная цена, в мегамаркете это "цена от". Небольшая путаница возникает
+      .withColumn(LOAD_DATE, lit(loadDate))
+      .withColumn(LOAD_TIME, lit(loadTime))
+      .dropDuplicates(GOOD_ID) // перед записью новой партии товаров удаляем дубликаты, которые нашлись из смежных поисковых запросов (от разных получателей)
+    )
 
-
-  // creating telegram messages
-  val tlgMessageDs = createTlgMessagesDs(resultDs)
-  // sending results over Telegram
-  sendTlgNotifications(tlgMessageDs)
+    if (doResults > 1) {
+      // sending results over Telegram
+      val tlgMessageDs = createTlgMessagesDs(resultDs)
+      sendTlgNotifications(tlgMessageDs)
+    }
+  }
 
 }
